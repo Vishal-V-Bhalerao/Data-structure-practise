@@ -1,0 +1,15 @@
+{
+  "name": "data-structure-practise",
+  "version": "1.0.0",
+  "description": "pratice repo for DS",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "author": "Vishal",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^27.3.1"
+  }
+}
