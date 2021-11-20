@@ -29,7 +29,6 @@ const findMostCommonTitle = (myId, degreesOfSeparation) => {
   const searchedUsers = []
   let userQueue = []
   userQueue.push(myId)
-  // userQueue = [...userQueue, ...user.connections]
   while (degreesOfSeparation >= 0) {
     const queueLength = userQueue.length
     for (let i = 0; i < queueLength; i++) {
