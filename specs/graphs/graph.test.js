@@ -22,16 +22,20 @@
   }
 */
 const { getUser, getMe } = require("./jobs");
-
 const findMostCommonTitle = (myId, degreesOfSeparation) => {
+  // JobTitles works as hashTable to count how many times same job title is found
   const jobTitles = {}
   const user = getUser(myId)
+  // SearchedUsers array used to contain searched users to avoid searching them again
   const searchedUsers = []
+  // UserQueue for breadth first search. pushing connections of node in queue
   let userQueue = []
   userQueue.push(myId)
   while (degreesOfSeparation >= 0) {
+    // As logic update UserQueue, queueLength helps to know when scanning for one layer is completed 
     const queueLength = userQueue.length
     for (let i = 0; i < queueLength; i++) {
+      // if already scanned then dont scan and remove from queue
       if (searchedUsers.indexOf(userQueue[0]) === -1) {
         let tempUser = getUser(userQueue[0])
         if (jobTitles[tempUser.title]) {
@@ -48,8 +52,9 @@ const findMostCommonTitle = (myId, degreesOfSeparation) => {
     }
     degreesOfSeparation--
   }
+  // calculating most common job
   let mostCommonJob = null
-  console.log(jobTitles)
+  // used for in to iterate over properties 
   for (const jobTitle in jobTitles) {
     if (!mostCommonJob) {
       mostCommonJob = jobTitle
