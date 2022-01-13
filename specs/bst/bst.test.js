@@ -27,28 +27,41 @@ class Tree {
     }
     else {
       let pointer = this.head
-      while (pointer !== null) {
-        console.log('tree node', pointer)
-        if (pointer.value > num) {
-          pointer = pointer.left
+      while (true) { // continuos look till we encounter null left or right child
+        if (pointer.value > num) { // if num is smaller than value of current node go to left child
+          if (pointer.left !== null)
+            pointer = pointer.left
+          else {
+            pointer.left = new node(num, null, null) // if no left child present add new node with value as num
+            break;
+          }
         }
         else if (pointer.value <= num) {
-          pointer = pointer.right
+          if (pointer.right !== null)
+            pointer = pointer.right
+          else {
+            pointer.right = new node(num, null, null)
+            break;
+          }
         }
       }
-      pointer = new node(num, null, null)
     }
   }
   toObject() {
-    return this.head.serialize();
+    return this.head.serialize()
   }
 }
-
 class node {
   constructor(value, left, right) {
     this.value = value;
     this.left = left;
     this.right = right;
+  }
+  serialize() {
+    const ans = { value: this.value };
+    ans.left = this.left === null ? null : this.left.serialize();
+    ans.right = this.right === null ? null : this.right.serialize();
+    return ans;
   }
 }
 // you might consider using a Node class too
